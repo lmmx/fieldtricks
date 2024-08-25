@@ -8,4 +8,5 @@ dependencies = [
   "fieldrouter",
   "pytest",
   "jsonschema",
+  "inline-snapshot"
 ]

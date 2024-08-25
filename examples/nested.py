@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from fieldrouter import Routing, RoutingModel
+from inline_snapshot import snapshot
 
 __all__ = ("NestedModel",)
 
@@ -19,7 +20,9 @@ def check():
     result_dict = result.model_dump()
     print(result_dict)
 
-    assert result_dict == {"field_1": "value_1", "field_2": "value_2", "field_3": 5}
+    assert result_dict == snapshot(
+        {"field_1": "value_1", "field_2": "value_2", "field_3": 5},
+    )
 
     model = NestedModel
     json_schema = json.dumps(model.model_json_schema(), indent=2)
@@ -28,5 +31,4 @@ def check():
     (schema_dir / f"{model.__name__}.json").write_text(json_schema)
 
 
-if __name__ == "__main__":
-    check()
+check()
