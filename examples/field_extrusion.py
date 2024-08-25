@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -91,7 +93,7 @@ def get_chiitan_info() -> dict:
                 "title": "Chiitan☆ Dance",
                 "count": 1200,
                 "date": "2022-04-15T10:00:00Z",
-            }
+            },
         ],
         "photoshoots": [
             {
@@ -100,7 +102,7 @@ def get_chiitan_info() -> dict:
                 "title": "Chiitan☆ Archery Practice",
                 "count": 50,
                 "date": "2023-07-05T12:00:00Z",
-            }
+            },
         ],
         "hobby": "extreme sports",
         "chaotic": True,
@@ -141,7 +143,7 @@ def check():
                 "count": 1200,
                 "date": "2022-04-15T10:00:00Z",
                 "type": "theme_tune",
-            }
+            },
         ],
         "photoshoots": [
             {
@@ -150,7 +152,7 @@ def check():
                 "count": 50,
                 "date": "2023-07-05T12:00:00Z",
                 "type": "photoshoot",
-            }
+            },
         ],
         "metadata": {
             "type": "mascot",
@@ -168,6 +170,11 @@ def check():
             },
         },
     }
+    model = QueryResult
+    json_schema = json.dumps(model.model_json_schema(), indent=2)
+    schema_dir = Path(__file__).parent / "schemas"
+    schema_dir.mkdir(exist_ok=True)
+    (schema_dir / f"{model.__name__}.json").write_text(json_schema)
 
 
 if __name__ == "__main__":
