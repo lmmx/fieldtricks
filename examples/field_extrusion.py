@@ -58,7 +58,7 @@ class ThemeTuneResult(ItemResult):
     type: Literal["theme_tune"]
 
 
-class PhotoShootResult(BaseModel):
+class PhotoShootResult(ItemResult):
     type: Literal["photoshoot"]
 
 
@@ -74,8 +74,9 @@ class QueryResult(MascotInfo):
         return v
 
 
-def check():
-    data = {
+def get_chiitan_info() -> dict:
+    """An imaginary API that gives info about Chiitan, the Japanese mascots."""
+    return {
         "character": "chiitan",
         "title": "Chiitan☆",
         "followers": 1_000_000,
@@ -116,6 +117,10 @@ def check():
             "8": "Korilakkuma",
         },
     }
+
+
+def check():
+    data = get_chiitan_info()
     result = QueryResult.model_validate(data)
 
     result_dict = result.model_dump()
@@ -138,7 +143,15 @@ def check():
                 "type": "theme_tune",
             }
         ],
-        "photoshoots": [{"type": "photoshoot"}],
+        "photoshoots": [
+            {
+                "id": "archery",
+                "title": "Chiitan☆ Archery Practice",
+                "count": 50,
+                "date": "2023-07-05T12:00:00Z",
+                "type": "photoshoot",
+            }
+        ],
         "metadata": {
             "type": "mascot",
             "metrics": {"awards": 100, "medals": 300},
