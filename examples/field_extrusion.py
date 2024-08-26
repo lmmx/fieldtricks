@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Literal, get_args, get_origin
+from typing import GenericAlias, Literal, get_args, get_origin
 
 from inline_snapshot import snapshot
 from pydantic import BaseModel, Field, create_model, model_validator
@@ -27,6 +27,20 @@ def is_subclass_safe(cls: type, base: type) -> bool:
     return isinstance(cls, type) and issubclass(cls, base)
 
 
+def resolve_generic_arg(annotation: GenericAlias) -> GenericAlias:
+    origin = get_origin(annotation)
+    args = get_args(annotation)
+    # Recursively replace BaseModel subclasses in the args
+    resolved_args = tuple(
+        prune_model_type(arg)
+        if is_subclass_safe(arg, BaseModel)
+        else (resolve_generic_arg(arg) if get_origin(arg) is not None else arg)
+        for arg in args
+    )
+    # Reconstruct the generic alias with the resolved arguments
+    return origin[resolved_args]
+
+
 def extract_bare_fields(
     fields: dict[str, FieldInfo], model_name_prefix: str
 ) -> dict[str, tuple[type, Field]]:
@@ -35,27 +49,16 @@ def extract_bare_fields(
         name: (
             info.annotation
             if get_origin(info.annotation) is None
-            else get_args(info.annotation)[0]  # Hack: restrict to only 1 type arg
+            else resolve_generic_arg(info.annotation)
         )
         for name, info in fields.items()
         if is_subclass_safe(info.annotation, BaseModel)
     }
-    check = {
-        # Check if 1 type arg assumption 1 was valid
-        name: (
-            len(get_args(info.annotation)) == 1
-            or not any(
-                is_subclass_safe(ty, BaseModel) for ty in get_args(info.annotation)
-            )
-        )
-        for name, info in fields.items()
-        if get_origin(info.annotation) is not None
-    }
-    assert all(check.values()), check
     result = {
         name: (
             (
-                prune_model_type(model_types[name], prefix=model_name_prefix)
+                # next line is not right, as it can still be a generic
+                prune_model_type(model_types[name], prefix=model_name_prefix)  # wrong
                 if name in model_types
                 else info.annotation
             ),
