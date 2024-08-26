@@ -20,14 +20,15 @@ def is_subclass_safe(cls: type, base: type) -> bool:
     """Safely check if cls is a subclass of base, even if cls is a GenericAlias."""
     # If cls is a generic alias (e.g., list[SomeType])
     origin = get_origin(cls)
-    if origin is not None:
+    if origin is None:
+        # Check if cls is a subclass of base
+        return isinstance(cls, type) and issubclass(cls, base)
+    else:
         # Extract the type inside the generic and check if it's a subclass
         return any(is_subclass_safe(arg, base) for arg in get_args(cls))
-    # Otherwise, check if cls is a subclass of base
-    return isinstance(cls, type) and issubclass(cls, base)
 
 
-def resolve_generic_arg(annotation: GenericAlias) -> GenericAlias:
+def resolve_generic_arg(annotation: GenericAlias, prefix: str) -> GenericAlias:
     origin = get_origin(annotation)
     args = get_args(annotation)
     # Recursively replace BaseModel subclasses in the args
@@ -47,21 +48,20 @@ def extract_bare_fields(
     """Removes the Routing 'wrapper' on the field annotations (removing validation)."""
     model_types = {
         name: (
-            info.annotation
+            (
+                prune_model_type(info.annotation, prefix=model_name_prefix)
+                if is_subclass_safe(info.annotation, BaseModel)
+                else info.annotation
+            )
             if get_origin(info.annotation) is None
-            else resolve_generic_arg(info.annotation)
+            else resolve_generic_arg(info.annotation, prefix=model_name_prefix)
         )
         for name, info in fields.items()
         if is_subclass_safe(info.annotation, BaseModel)
     }
     result = {
         name: (
-            (
-                # next line is not right, as it can still be a generic
-                prune_model_type(model_types[name], prefix=model_name_prefix)  # wrong
-                if name in model_types
-                else info.annotation
-            ),
+            (model_types[name] if name in model_types else info.annotation),
             Field(required=info.is_required),
         )
         for name, info in fields.items()
@@ -69,7 +69,7 @@ def extract_bare_fields(
     return result
 
 
-def prune_model_type(model: BaseModel, prefix="") -> BaseModel:
+def prune_model_type(model: BaseModel, prefix="Bare") -> BaseModel:
     fields = {name: info for name, info in model.model_fields.items()}
     return create_model(
         f"{prefix}{model.__name__}",
