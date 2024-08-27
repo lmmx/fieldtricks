@@ -7,7 +7,7 @@ from typing import Literal
 from inline_snapshot import snapshot
 from pydantic import BaseModel, Field, model_validator
 
-from fieldtricks.razor.generic import prune_model_type
+from fieldtricks.razor import prune_model_type
 
 __all__ = (
     "MascotInfo",

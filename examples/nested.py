@@ -6,7 +6,7 @@ from fieldrouter import Routing, RoutingModel
 from inline_snapshot import snapshot
 from pydantic import BaseModel
 
-from fieldtricks.razor.generic import prune_model_type
+from fieldtricks.razor import prune_model_type
 
 __all__ = ("NestedModel",)
 
