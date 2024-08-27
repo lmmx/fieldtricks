@@ -4,28 +4,13 @@ from typing import TypeVar
 
 from fieldrouter import Routing, RoutingModel
 from inline_snapshot import snapshot
-from pydantic import BaseModel, Field, create_model
-from pydantic.fields import FieldInfo
+from pydantic import BaseModel
+
+from fieldtricks.razor.simple import prune_model_type
 
 __all__ = ("NestedModel",)
 
 T = TypeVar("T", bound=BaseModel)
-
-
-def extract_bare_fields(fields: dict[str, FieldInfo]) -> dict[str, tuple[type, Field]]:
-    """Removes the Routing 'wrapper' on the field annotations (removing validation)."""
-    return {
-        name: (info.annotation, Field(required=info.is_required))
-        for name, info in fields.items()
-    }
-
-
-def prune_model_type(model: BaseModel, prefix="") -> BaseModel:
-    fields = {name: info for name, info in model.model_fields.items()}
-    return create_model(
-        f"{prefix}{model.__name__}",
-        **extract_bare_fields(fields),
-    )
 
 
 class NestedModel(RoutingModel):

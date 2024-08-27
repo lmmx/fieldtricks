@@ -8,5 +8,6 @@ dependencies = [
   "fieldrouter",
   "pytest",
   "jsonschema",
-  "inline-snapshot"
+  "inline-snapshot",
+  "datamodel-code-generator",
 ]
