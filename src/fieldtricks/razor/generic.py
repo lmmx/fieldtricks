@@ -1,3 +1,5 @@
+"""Able to handle generics (including generic aliases like `list[...]`/`dict[...]`)."""
+
 from __future__ import annotations
 
 import json
