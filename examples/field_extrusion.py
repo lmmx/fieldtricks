@@ -242,8 +242,7 @@ def check():
 
     bare_model = prune_model_type(model)
     reparsed = bare_model.model_validate(result_dict)
-    # Fails:
-    # assert reparsed.model_dump() == result_dict
+    assert reparsed.model_dump() == result_dict
 
 
 check()
