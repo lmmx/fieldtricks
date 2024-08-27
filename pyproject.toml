@@ -7,7 +7,7 @@ build-backend = "pdm.backend"
 [project]
 name = "fieldtricks"
 version = "0.1.0"
-description = "Add your description here"
+description = ""
 authors = [
   {name = "Louis Maddox", email = "louismmx@gmail.com"}
 ]
