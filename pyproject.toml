@@ -7,7 +7,7 @@ build-backend = "pdm.backend"
 [project]
 name = "fieldtricks"
 version = "0.1.1"
-description = ""
+description = "Helper utilities for handling Pydantic models"
 authors = [
     { name = "Louis Maddox", email = "louismmx@gmail.com" },
 ]
