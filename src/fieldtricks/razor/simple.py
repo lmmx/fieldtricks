@@ -1,3 +1,5 @@
+"""A simple proof of concept razor, deprecated for generic handling version."""
+
 from typing import TypeVar
 
 from pydantic import BaseModel, Field, create_model
