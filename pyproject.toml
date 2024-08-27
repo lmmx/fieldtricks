@@ -1,13 +1,36 @@
+[build-system]
+requires = [
+  "pdm-backend"
+]
+build-backend = "pdm.backend"
+
 [project]
 name = "fieldtricks"
 version = "0.1.0"
 description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.10"
+authors = [
+  {name = "Louis Maddox", email = "louismmx@gmail.com"}
+]
 dependencies = [
   "fieldrouter",
-  "pytest",
   "jsonschema",
-  "inline-snapshot",
   "datamodel-code-generator"
+]
+requires-python = ">=3.10"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/lmmx/fieldrouter"
+Repository = "https://github.com/lmmx/fieldrouter.git"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.dev-dependencies]
+test = [
+  "inline-snapshot",
+  "pytest>=8.3.2"
 ]
