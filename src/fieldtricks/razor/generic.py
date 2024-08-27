@@ -43,7 +43,8 @@ def resolve_generic_arg(annotation: GenericAlias, prefix: str) -> GenericAlias:
 
 
 def extract_bare_fields(
-    fields: dict[str, FieldInfo], model_name_prefix: str
+    fields: dict[str, FieldInfo],
+    model_name_prefix: str,
 ) -> dict[str, tuple[type, Field]]:
     """Removes the Routing 'wrapper' on the field annotations (removing validation)."""
     model_types = {

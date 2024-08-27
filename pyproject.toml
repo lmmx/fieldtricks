@@ -9,5 +9,5 @@ dependencies = [
   "pytest",
   "jsonschema",
   "inline-snapshot",
-  "datamodel-code-generator",
+  "datamodel-code-generator"
 ]
