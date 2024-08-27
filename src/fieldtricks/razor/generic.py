@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import GenericAlias, Literal, get_args, get_origin
+from typing import FieldInfo, GenericAlias, Literal, get_args, get_origin
 
 from inline_snapshot import snapshot
 from pydantic import BaseModel, Field, create_model, model_validator
