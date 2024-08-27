@@ -1,0 +1,208 @@
+{
+  "$defs": {
+    "MascotExtra": {
+      "properties": {
+        "type": {
+          "const": "mascot",
+          "default": "mascot",
+          "enum": [
+            "mascot"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "metrics": {
+          "$ref": "#/$defs/MascotMetrics"
+        },
+        "misc": {
+          "$ref": "#/$defs/MascotMisc"
+        },
+        "top_8": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Top 8",
+          "type": "object"
+        }
+      },
+      "required": [
+        "metrics",
+        "misc",
+        "top_8"
+      ],
+      "title": "MascotExtra",
+      "type": "object"
+    },
+    "MascotMetrics": {
+      "properties": {
+        "awards": {
+          "title": "Awards",
+          "type": "integer"
+        },
+        "medals": {
+          "title": "Medals",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "awards",
+        "medals"
+      ],
+      "title": "MascotMetrics",
+      "type": "object"
+    },
+    "MascotMisc": {
+      "properties": {
+        "hobby": {
+          "title": "Hobby",
+          "type": "string"
+        },
+        "chaotic": {
+          "title": "Chaotic",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "hobby",
+        "chaotic"
+      ],
+      "title": "MascotMisc",
+      "type": "object"
+    },
+    "PhotoShootResult": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "count": {
+          "title": "Count",
+          "type": "integer"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "type": {
+          "const": "photoshoot",
+          "enum": [
+            "photoshoot"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "count",
+        "date",
+        "type"
+      ],
+      "title": "PhotoShootResult",
+      "type": "object"
+    },
+    "ThemeTuneResult": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "count": {
+          "title": "Count",
+          "type": "integer"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "type": {
+          "const": "theme_tune",
+          "enum": [
+            "theme_tune"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "count",
+        "date",
+        "type"
+      ],
+      "title": "ThemeTuneResult",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "character": {
+      "title": "Character",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "followers": {
+      "title": "Followers",
+      "type": "integer"
+    },
+    "age": {
+      "title": "Age",
+      "type": "integer"
+    },
+    "homepage_url": {
+      "title": "Homepage Url",
+      "type": "string"
+    },
+    "bio": {
+      "title": "Bio",
+      "type": "string"
+    },
+    "timestamp": {
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "theme_tunes": {
+      "items": {
+        "$ref": "#/$defs/ThemeTuneResult"
+      },
+      "title": "Theme Tunes",
+      "type": "array"
+    },
+    "photoshoots": {
+      "items": {
+        "$ref": "#/$defs/PhotoShootResult"
+      },
+      "title": "Photoshoots",
+      "type": "array"
+    },
+    "metadata": {
+      "$ref": "#/$defs/MascotExtra"
+    }
+  },
+  "required": [
+    "character",
+    "title",
+    "followers",
+    "age",
+    "homepage_url",
+    "bio",
+    "timestamp",
+    "theme_tunes",
+    "photoshoots",
+    "metadata"
+  ],
+  "title": "QueryResult",
+  "type": "object"
+}

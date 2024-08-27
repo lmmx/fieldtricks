@@ -2,8 +2,8 @@
 
 from typing import TypeVar
 
-from pydantic import BaseModel, Field, create_model
-from pydantic.fields import FieldInfo
+from pydantic import BaseModel, create_model
+from pydantic.fields import Field, FieldInfo
 
 __all__ = ("extract_bare_fields", "prune_model_type")
 
