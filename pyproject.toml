@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "pdm-backend",
+  "pdm-backend"
 ]
 build-backend = "pdm.backend"
 
@@ -9,12 +9,12 @@ name = "fieldtricks"
 version = "0.1.2"
 description = "Helper utilities for handling Pydantic models"
 authors = [
-    { name = "Louis Maddox", email = "louismmx@gmail.com" },
+  {name = "Louis Maddox", email = "louismmx@gmail.com"}
 ]
 dependencies = [
-    "fieldrouter",
-    "jsonschema",
-    "datamodel-code-generator",
+  "fieldrouter",
+  "jsonschema",
+  "datamodel-code-generator"
 ]
 requires-python = ">=3.10"
 readme = "README.md"
@@ -31,6 +31,6 @@ distribution = true
 
 [tool.pdm.dev-dependencies]
 test = [
-    "inline-snapshot",
-    "pytest>=8.3.2",
+  "inline-snapshot",
+  "pytest>=8.3.2"
 ]
