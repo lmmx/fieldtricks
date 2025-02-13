@@ -22,6 +22,11 @@ readme = "README.md"
 [project.license]
 text = "MIT"
 
+[project.optional-dependencies]
+dev = [
+  "pre-commit>=4.1.0"
+]
+
 [project.urls]
 Homepage = "https://github.com/lmmx/fieldrouter"
 Repository = "https://github.com/lmmx/fieldrouter.git"
