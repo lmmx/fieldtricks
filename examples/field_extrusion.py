@@ -10,9 +10,9 @@ from pydantic import BaseModel, Field, model_validator
 from fieldtricks.razor import prune_model_type
 
 __all__ = (
+    "MascotExtra",
     "MascotInfo",
     "MascotMetrics",
-    "MascotExtra",
     "MascotMisc",
     "QueryResult",
 )
