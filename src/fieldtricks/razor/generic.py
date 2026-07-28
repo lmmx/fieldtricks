@@ -11,9 +11,9 @@ from pydantic import BaseModel, create_model, model_validator
 from pydantic.fields import Field, FieldInfo
 
 __all__ = (
+    "MascotExtra",
     "MascotInfo",
     "MascotMetrics",
-    "MascotExtra",
     "MascotMisc",
     "QueryResult",
 )
