@@ -9,7 +9,7 @@ name = "fieldtricks"
 version = "0.1.2"
 description = "Helper utilities for handling Pydantic models"
 authors = [
-  {name = "Louis Maddox", email = "louismmx@gmail.com"}
+  { name = "Louis Maddox", email = "louismmx@gmail.com" }
 ]
 dependencies = [
   "fieldrouter",
