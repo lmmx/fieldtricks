@@ -19,7 +19,7 @@ def extract_bare_fields(fields: dict[str, FieldInfo]) -> dict[str, tuple[type, F
 
 
 def prune_model_type(model: BaseModel, prefix="") -> BaseModel:
-    fields = {name: info for name, info in model.model_fields.items()}
+    fields = {**model.model_fields}
     return create_model(
         f"{prefix}{model.__name__}",
         **extract_bare_fields(fields),
